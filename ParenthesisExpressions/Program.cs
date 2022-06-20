@@ -15,10 +15,6 @@ namespace ParenthesisExpressions
             int lastOpeningSymbols = 1;
             int attachmentLevel = 0;
             int maxAttachmentLevel = 0;
-            int openClose = 1;
-            int openCloseReset = 1;
-            int zeroNumber = 0;
-            int nexCymbol = 1;
             bool isExpressionCorrect = true;
 
             Console.Write("Введите строку из символов \'(\' и \')\' : ");
@@ -35,32 +31,6 @@ namespace ParenthesisExpressions
                     if (userInput[i] == openingSymbol)
                     {
                         countOpeningSymbols++;
-  
-                        for (int j = i + nexCymbol; j < userInput.Length; j++)
-                        {
-
-                            if (userInput[j] == closingSymbol)
-                            {
-                                openClose--;
-                            }
-                            else if (userInput[j] == openingSymbol)
-                            {
-                                openClose++;
-                            }
-
-                            if (openClose == zeroNumber)
-                            {
-                                break;
-                            }
-                        }
-
-                        if (openClose != zeroNumber)
-                        {
-                            isExpressionCorrect = false ;
-                            break;
-                        }
-
-                        openClose = openCloseReset;
                         attachmentLevel++;
 
                         if (attachmentLevel > maxAttachmentLevel)
@@ -73,6 +43,11 @@ namespace ParenthesisExpressions
                     {
                         countClosingSymbols++;
                         attachmentLevel--;
+                    }
+
+                    if (attachmentLevel < 0)
+                    {
+                        isExpressionCorrect = false;
                     }
                 }
             }
